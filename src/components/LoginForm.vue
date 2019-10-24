@@ -50,6 +50,7 @@ export default {
         
         this.$router.push('/main')
       }).catch(response => {
+        alert(response);
         this.wrongLogin = true;
       })
     }, 2000, {leading: true})

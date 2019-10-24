@@ -69,7 +69,7 @@
       -->
       <br>
       <div class="field">
-        <button class="button is-link" @click="postSheet()" >Sign up!</button>
+        <button class="button is-link" @click="postSheet()" >Create Sheet</button>
       </div>
     </form>
 
@@ -110,7 +110,6 @@ export default {
         }
       },
       ).then(response => {
-        console.log("emitting");
         this.$emit('sheet-created');
       }).catch(err => {
         alert(err);

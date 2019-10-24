@@ -14,22 +14,33 @@
         <footer class="card-footer">
           <router-link :to="'/main/'+ sheet._id + '/main'" class="card-footer-item"> Edit</router-link>
           <a href="#" class="card-footer-item" @click="deleteSheet(sheet._id)">Delete</a>
+          <a href="#" class="card-footer-item" @click="invitePlayersFormActive = true; sheetIdInvite = sheet._id">Invite players</a>
         </footer>
+      </div>
     </div>
-    </div>
+    <div class="modal" :class="{'is-active': invitePlayersFormActive}">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <invite-players @exit = "exit" :sheetId = sheetIdInvite> </invite-players>
+      </div>
+      <button class="modal-close is-large" @click="invitePlayersFormActive = false"></button>
+    </div> 
+
   </div>
 </template>
-
 <script>
 
 import {requester} from '../App.vue';
+import InvitePlayers from './InvitePlayers.vue';
 
 export default {
   name: 'SheetList',
   data: function() {
     return {
       sheets: [],
-      token: this.$store.state.token
+      token: this.$store.state.token,
+      invitePlayersFormActive: false,
+      sheetIdInvite: ""
     }
   },
   methods: {
@@ -64,10 +75,16 @@ export default {
       }).catch((response) => {
         alert("error");
       })
+    },
+    exit(){
+      this.invitePlayersFormActive = false;
     }
   },
   created () {
     this.getSheets();
+  },
+  components: {
+    InvitePlayers
   }
 }
 </script>

@@ -15,39 +15,39 @@
           <tbody>
             <tr>
               <th>STR</th>
-              <th><input type = "number" v-model.number="str" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.str" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "strWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.strWeak"></th>
             </tr>
             <tr>
               <th>CON</th>
-              <th><input type = "number" v-model.number="con" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.con" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "conWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.conWeak"></th>
             </tr>
             <tr>
               <th>DEX</th>
-              <th><input type = "number" v-model.number="dex" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.dex" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "dexWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.dexWeak"></th>
             </tr>
             <tr>
               <th>INT</th>
-              <th><input type = "number" v-model.number="int" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.int" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "intWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.intWeak"></th>
             </tr>
             <tr>
               <th>WIS</th>
-              <th><input type = "number" v-model.number="wis" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.wis" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "wisWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.wisWeak"></th>
             </tr>
             <tr>
               <th>CHA</th>
-              <th><input type = "number" v-model.number="cha" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.cha" min = "6" max = "18"/></th>
               <th>+0</th>
-              <th> <input type = "checkbox" v-model = "chaWeak"></th>
+              <th> <input type = "checkbox" v-model = "sheet.chaWeak"></th>
             </tr>
           </tbody>
         </table>
@@ -60,28 +60,28 @@
         </div>
         <div class="control">
           <label class="radio">
-            <input type="radio" name = "race" v-model = "race" value = "Human">
+            <input type="radio" name = "race" v-model = "sheet.race" value = "Human">
             Human
           </label>
           <label class="radio">
-            <input type="radio" name = "race" v-model = "race" value = "Elf">
+            <input type="radio" name = "race" v-model = "sheet.race" value = "Elf">
             Elf
           </label>
           <label class="radio">
-            <input type="radio" name = "race" v-model = "race" value = "Dwarf">
+            <input type="radio" name = "race" v-model = "sheet.race" value = "Dwarf">
             Dwarf
           </label>
           <label class="radio">
-            <input type="radio" name = "race" v-model = "race" value = "Halfling">
+            <input type="radio" name = "race" v-model = "sheet.race" value = "Halfling">
             Halfling
           </label>
           <label class="radio">
-            <input type="radio" name = "race" v-model = "race" value = "Other">
+            <input type="radio" name = "race" v-model = "sheet.race" value = "Other">
             Other
           </label>
-          <input type = "text" v-model = "raceOther" @click="race = 'Other'"/>
+          <input type = "text" v-model = "sheet.raceOther" @click="race = 'Other'"/>
         </div>
-        <textarea class="textarea" placeholder="Racial Move" v-model="racialMove"></textarea>
+        <textarea class="textarea" placeholder="Racial Move" v-model="sheet.racialMove"></textarea>
       </div>
       
 
@@ -92,31 +92,31 @@
         </div>
         <div class="control">
           <label class="radio">
-            <input type="radio" name = "alignment" v-model = "alignment" value = "Good">
+            <input type="radio" name = "alignment" v-model = "sheet.alignment" value = "Good">
             Good
           </label>
           <label class="radio">
-            <input type="radio" name = "alignment" v-model = "alignment" value = "Evil">
+            <input type="radio" name = "alignment" v-model = "sheet.alignment" value = "Evil">
             Evil
           </label>
           <label class="radio">
-            <input type="radio" name = "alignment" v-model = "alignment" value = "Lawful">
+            <input type="radio" name = "alignment" v-model = "sheet.alignment" value = "Lawful">
             Lawful
           </label>
           <label class="radio">
-            <input type="radio" name = "alignment" v-model = "alignment" value = "Chaotic">
+            <input type="radio" name = "alignment" v-model = "sheet.alignment" value = "Chaotic">
             Chaotic
           </label>
         </div>
-        <textarea class="textarea" placeholder="Alignment Move" v-model="alignmentMove"></textarea>
+        <textarea class="textarea" placeholder="Alignment Move" v-model="sheet.alignmentMove"></textarea>
       </div>
       
       <div class = "section">
         <div class = "title is-3">
           Bonds
         </div>
-        <div v-for="(bond,index) in bonds" :key="index">
-          <textarea class="textarea" placeholder="Bond" v-model="bond.text"></textarea>
+        <div v-for="(bond,index) in bondKey" :key="index">
+          <textarea class="textarea" placeholder="Bond" v-model="sheet.bonds[index]"></textarea>
         </div>
         
       </div>
@@ -125,7 +125,7 @@
     
     <div class = "column">
       <div class = "control section max" >
-        <input type = "text" v-model = "className" placeholder="Class Name" class = "input is-large" style = "text-align: center">
+        <input type = "text" v-model = "sheet.class" placeholder="Class Name" class = "input is-large" style = "text-align: center">
       </div>
       
       <div class="field is-horizontal">
@@ -135,7 +135,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="number" min = 0>
+              <input class="input" type="number" min = 0 v-model = "sheet.level">
             </p>
           </div>
           <div class="field-label is-normal">
@@ -143,7 +143,7 @@
           </div>
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="number" min = 0>
+              <input class="input" type="number" min = 0 v-model = "sheet.xp">
             </p>
           </div>
         </div>
@@ -156,7 +156,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="number" min = 0>
+              <input class="input" type="number" min = 0 v-model.number = "sheet.hp">
             </p>
           </div>
 
@@ -165,7 +165,7 @@
           </div>
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="number" min = 0>
+              <input class="input" type="number" min = 0 v-model.number = "sheet.armor">
             </p>
           </div>
 
@@ -174,7 +174,7 @@
           </div>
           <div class="field">
             <p class="control is-expanded select">
-              <select v-model="damage">
+              <select v-model.number="sheet.damage">
                 <option value="4">d4</option>
                 <option value="6">d6</option>
                 <option value="8">d8</option>
@@ -188,7 +188,7 @@
         
       <div name = "moves" class = "columns is-multiline section is-6 is-variable is-vcentered">
 
-        <div class = "column is-half" v-for="move in moves" :key= "move.id">
+        <div class = "column is-half" v-for="move in sheet.moves" :key= "move.id">
           <div class="card">
             <header class="card-header">
               <p class="card-header-title field control">
@@ -226,7 +226,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in equipment" :key = "item.id">
+            <tr v-for="item in sheet.equipment" :key = "item.id">
               <th><input class = "input" type = "text" v-model="item.name"/></th>
               <th><input class = "input" type = "text" v-model="item.description"/></th>
               <th><input class = "input" type = "number" v-model.number="item.weight" min = "0" max = "6" style="width:3em"/></th>
@@ -239,7 +239,7 @@
           </tbody>
         </table>
       </div>
-
+      <input class = "button is-primary is-large" type = "button" @click="updateSheet()" value = "Update">
     </div>
   </div>
 </template>
@@ -249,134 +249,86 @@ import _ from 'lodash';
 import {requester} from '../../App.vue';
 
 export default {
-  name: 'DW Edit Main',
+  name: 'DWEditMain',
   data() { 
     return {
+      sheet: {},
       token: this.$store.state.token,
-      str: 10,
-      strWeak: false,
-      con: 10,
-      conWeak: false,
-      dex: 10,
-      dexWeak: false,
-      int: 10,
-      intWeak: false,
-      wis: 10,
-      wisWeak: false,
-      cha: 10,
-      chaWeak: false,
-      race: "",
-      raceOther: "",
-      racialMove: "",
-      alignment: "",
-      alignmentMove: "",
-      class: "",
-      level: 1,
-      xp: 0,
-      hp: 0,
-      armor: 0,
-      damage: 4,
-      moves: [
-        {
-          id: 1,
-          name: "Bend Bars, Lift Gates",
-          description: `When you use pure strength to destroy an inanimate obstacle, roll+STR. 
-          • On a 10+, choose 3. • On a 7-9 choose 2. • It doesn’t take a very long time • Nothing of value is damaged 
-          • It doesn’t make an inordinate amount 
-          of noise • You can fix the thing again without a lot 
-          of effort`
-        },
-        {
-          id: 2,
-          name: "Armored",
-          description: `You ignore the clumsy tag on any armor you wear.`
-        },
-        {
-          id: 3,
-          name: "Mercyless",
-          description: `When you deal damage, deal +1d4 damage.`
-        }
-
-      ],
-      bonds: [
-        {
-          text: "Test bond"
-        },
-        {
-          text: "Test bond"
-        }
-      ],
-      equipment: [
-        {
-          id: 1,
-          name: "Iron sword",
-          description: "It just cuts things",
-          weight: 1,
-          tags: "near",
-          amount: 1,
-        }
-      ]
-
+      bondKey: ["","","","","",""]
       }
   },
   methods: {
     newMove: function(){
-      this.moves.push({});
+      this.sheet.moves.push({});
     },
     newItem: function(){
-      this.equipment.push({});
+      this.sheet.equipment.push({});
     },
-    register: _.debounce(async function(){
+    updateSheet: _.debounce(async function(){
+      let token = this.token;
+      let id = this.$route.params.sheetId;
 
-      // It is important to check all inputs because the valid values may not have been computed yet
-      if(this.username == "" || this.password == "" || this.displayName == "" || this.email == ""){
-        return;
-      }
-      await this.checkUsername();
-      if(this.nameIsTaken){
-        return;
+      let tmpRace = this.sheet.race;
+      if (this.sheet.race == "Other"){
+        this.sheet.race = this.sheet.raceOther;
       }
 
-      await this.checkPassword();
-      if(this.passwordsNotMatching || this.passwordTooShort){
-        return;
-      }
+      let formData = new FormData();
+      console.log(this.sheet);
+      formData.append('sheet', this.sheet);
 
-      await this.checkEmail();
-      if(this.emailInvalid){
-        return;
-      }
-
-      requester.post('register', {
-        username: this.username,
-        email: this.email,
-        displayName: this.displayName,
-        password: this.password,
-        characterSheet: this.characterSheet
+      let url = 'sheets/' + id;
+      requester.put(url,{
+        sheet: this.sheet
+      }, {
+        headers: {
+          token
+        }
       }).then(response => {
-        this.userRegistered = true;
+        //this.toMain();
       }).catch(err => {
-        this.userFailedToRegister = true;
+        alert(err);
+        console.log(err);
+      }).finally(function (){
+        //this.sheet.race = tmpRace;
       })
+
     }, 2000, {leading: true}),
     toMain: function(){
-      this.userRegistered = false;
-      this.$router.push('/')
+      this.$router.push('/main')
+    },
+    initialize: function(){
+      this.sheet.str = 10;
+      this.sheet.dex = 10;
+      this.sheet.con = 10;
+      this.sheet.int = 10;
+      this.sheet.wis = 10;
+      this.sheet.cha = 10;
+      this.sheet.level = 1;
+      this.sheet.xp = 0;
+      for(let i = 0; i < 6; i++){
+        this.sheet.bonds.push("");
+      }
+      
     }
     
   },
   created: function(){
     let token = this.token;
     let id = this.$route.params.sheetId;
-      requester.get('sheets/' + id, {
-        headers: {
-          token
-        }
-      }).then((response) => {
-        this.sheets = response.data;
-      }).catch((response) => {
-        alert("error");
-      })
+    requester.get('sheets/' + id, {
+      headers: {
+        token
+      }
+    }).then((response) => {
+      this.sheet = response.data;
+      if(isNaN(this.sheet.str)){
+        this.initialize();
+      }
+    }).catch((response) => {
+      alert("error");
+      alert(response)
+    })
   }
 }
 </script>
