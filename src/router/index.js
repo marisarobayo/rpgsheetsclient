@@ -47,6 +47,7 @@ function verifyUser(to, from, next){
 }
 
 export default new Router({
+  mode: "history", //no # at the start of routes
   routes: [
     {
       path: '/',
