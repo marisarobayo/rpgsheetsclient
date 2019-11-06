@@ -69,7 +69,7 @@
       -->
       <br>
       <div class="field">
-        <button class="button is-link" @click="postSheet()" >Create Sheet</button>
+        <a class="button is-link" @click="postSheet()" >Create Sheet</a>
       </div>
     </form>
 

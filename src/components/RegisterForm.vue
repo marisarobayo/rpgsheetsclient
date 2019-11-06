@@ -92,7 +92,7 @@
       </div>
 
       <div class="field">
-        <button class="button is-link" @click="register()" >Sign up!</button>
+        <a class="button is-link" @click="register()" >Sign up!</a>
       </div>
     </form>
     
