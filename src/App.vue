@@ -9,8 +9,13 @@
 
 import axios from 'axios';
 
+let baseURL = process.env.VUE_APP_BASEURL;
+if(baseURL == null || baseURL == undefined){
+  baseURL = 'https://localhost:3000/';
+}
+
 export var requester = axios.create({
-  baseURL: 'https://localhost:3000/'
+  baseURL: baseURL
 });
 
 export default {
