@@ -77,7 +77,7 @@
         
       </div>
 
-      <div class = "field is-horizontal">
+      <!--<div class = "field is-horizontal">
         <div class = "field-label is-normal">
           <label for= "characterSheet" class = "label"> Referral Token </label>
         </div>
@@ -89,7 +89,7 @@
             <p class = "help is-danger left" v-show="characterSheetInvalid"> You must input a valid token, or none </p>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div class="field">
         <a class="button is-link" @click="register()" >Sign up!</a>
@@ -149,8 +149,8 @@ export default {
       password2: "",
       displayName: "",
       email: "",
-      characterSheet: "",
-      characterSheetInvalid: false,
+      //characterSheet: "",
+      //characterSheetInvalid: false,
       userRegistered: false,
       userFailedToRegister: false,
       passwordTooShort: false
@@ -207,8 +207,7 @@ export default {
         username: this.username,
         email: this.email,
         displayName: this.displayName,
-        password: this.password,
-        characterSheet: this.characterSheet
+        password: this.password
       }).then(response => {
         this.userRegistered = true;
       }).catch(err => {

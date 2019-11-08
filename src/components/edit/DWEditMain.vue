@@ -15,37 +15,37 @@
           <tbody>
             <tr>
               <th>STR</th>
-              <th><input type = "number" v-model.number="sheet.str" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.strength" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.strWeak"></th>
             </tr>
             <tr>
               <th>CON</th>
-              <th><input type = "number" v-model.number="sheet.con" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.constitution" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.conWeak"></th>
             </tr>
             <tr>
               <th>DEX</th>
-              <th><input type = "number" v-model.number="sheet.dex" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.dexterity" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.dexWeak"></th>
             </tr>
             <tr>
               <th>INT</th>
-              <th><input type = "number" v-model.number="sheet.int" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.intelligence" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.intWeak"></th>
             </tr>
             <tr>
               <th>WIS</th>
-              <th><input type = "number" v-model.number="sheet.wis" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.wisdom" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.wisWeak"></th>
             </tr>
             <tr>
               <th>CHA</th>
-              <th><input type = "number" v-model.number="sheet.cha" min = "6" max = "18"/></th>
+              <th><input type = "number" v-model.number="sheet.charisma" min = "6" max = "18"/></th>
               <th>+0</th>
               <th> <input type = "checkbox" v-model = "sheet.chaWeak"></th>
             </tr>
@@ -156,7 +156,7 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="number" min = 0 v-model.number = "sheet.hp">
+              <input class="input" type="number" min = 0 v-model.number = "sheet.maxhp">
             </p>
           </div>
 
@@ -274,7 +274,6 @@ export default {
       }
 
       let formData = new FormData();
-      console.log(this.sheet);
       formData.append('sheet', this.sheet);
 
       let url = 'sheets/' + id;
@@ -288,7 +287,6 @@ export default {
         //this.toMain();
       }).catch(err => {
         alert(err);
-        console.log(err);
       }).finally(function (){
         //this.sheet.race = tmpRace;
       })
@@ -322,7 +320,7 @@ export default {
       }
     }).then((response) => {
       this.sheet = response.data;
-      if(isNaN(this.sheet.str)){
+      if(isNaN(this.sheet.strength)){
         this.initialize();
       }
     }).catch((response) => {
