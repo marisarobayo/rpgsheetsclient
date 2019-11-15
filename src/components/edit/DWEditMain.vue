@@ -219,10 +219,10 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Description</th>
+              <th>Function</th>
               <th>Weight</th>
               <th>Tags</th>
-              <th>Amount</th>
+              <th>Qty</th>
             </tr>
           </thead>
           <tbody>
