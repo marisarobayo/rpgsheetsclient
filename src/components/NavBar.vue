@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <nav class="navbar nav" role="navigation" >
+  <nav class="navbar nav is-fixed-top" role="navigation" >
     <div class="navbar-brand">
       <a class="navbar-item" href="#">
         <strong>RPGSheets</strong>
