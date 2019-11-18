@@ -10,8 +10,7 @@
           <div class = "card-content">
             <h3 class="title"> Share Character Sheets </h3>
             <section>
-            RPGSheets offers you the possibility of creating character sheets and sharing them to other users. 
-            You can even create a link for other unregistered users to see them!
+            RPGSheets offers you the possibility of creating character sheets and sharing them to other users.
             </section>
           </div>
         </div>

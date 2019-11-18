@@ -15,38 +15,38 @@
           <tbody>
             <tr>
               <th>STR</th>
-              <th><input type = "number" v-model.number="sheet.strength" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.strength" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.strength, sheet.strWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.strWeak"></th>
             </tr>
             <tr>
               <th>CON</th>
-              <th><input type = "number" v-model.number="sheet.constitution" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.constitution" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.constitution, sheet.conWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.conWeak"></th>
             </tr>
             <tr>
               <th>DEX</th>
-              <th><input type = "number" v-model.number="sheet.dexterity" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.dexterity" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.dexterity, sheet.dexWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.dexWeak"></th>
             </tr>
             <tr>
               <th>INT</th>
-              <th><input type = "number" v-model.number="sheet.intelligence" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.intelligence" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.intelligence, sheet.intWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.intWeak"></th>
             </tr>
             <tr>
               <th>WIS</th>
-              <th><input type = "number" v-model.number="sheet.wisdom" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.wisdom" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.wisdom, sheet.wisWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.wisWeak"></th>
             </tr>
             <tr>
               <th>CHA</th>
-              <th><input type = "number" v-model.number="sheet.charisma" min = "6" max = "18"/></th>
-              <th>+0</th>
+              <th><input type = "number" v-model.number="sheet.charisma" min = "1" max = "18"/></th>
+              <th>{{calculateModifier(sheet.charisma, sheet.chaWeak)}}</th>
               <th> <input type = "checkbox" v-model = "sheet.chaWeak"></th>
             </tr>
           </tbody>
@@ -307,7 +307,33 @@ export default {
       for(let i = 0; i < 6; i++){
         this.sheet.bonds.push("");
       }
-      
+    },
+    calculateModifier: function(attribute, isWeak){
+      let modifier;
+      if(attribute >= 18){
+        modifier = 3;
+      } else if (attribute >= 16){
+        modifier = 2;
+      } else if (attribute >= 13){
+        modifier = 1;
+      } else if (attribute >= 9){
+        modifier = 0;
+      } else if (attribute >= 6){
+        modifier = -1;
+      } else if (attribute >= 4){
+        modifier = -2;
+      } else {
+        modifier = -3;
+      }
+
+      if(isWeak){
+        modifier--;
+      }
+
+      if (modifier >= 0){
+        modifier = "+" + modifier;
+      }
+      return modifier;
     }
     
   },

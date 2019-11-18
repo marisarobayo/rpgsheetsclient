@@ -13,7 +13,7 @@
     <div class = "field">
       <label for= "passwordL" class = "label"> Password </label>
       <div class = "control">
-        <input id = "passwordL" class = "input" type = "password" v-model="password"/>
+        <input id = "passwordL" class = "input" type = "password" v-on:keyup.enter="logIn" v-model="password"/>
       </div>
     </div>
     <div class="field">

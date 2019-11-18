@@ -20,7 +20,7 @@
           View Sheets
         </router-link>
 
-        <a class="navbar-item" @click= "newSheetFormActive = true">
+        <a class="navbar-item" @click= "newSheet()">
           New Sheet
         </a>
       </div>
@@ -45,32 +45,21 @@
       </div>
       </div>
     </div>
-  </nav>
+  </nav> 
 
-  <div class="modal" :class="{'is-active': newSheetFormActive}">
-    <div class="modal-background"></div>
-    <div class="modal-content" >
-      <new-sheet-form @sheet-created = "sheetCreated"> </new-sheet-form>
-    </div>
-    <button class="modal-close is-large" @click="newSheetFormActive = false"></button>
-  </div> 
-
-  
 </div>
 </template>
 
 <script>
 import {requester} from '../App.vue'; 
 import {store} from '../store.js';
-import NewSheetForm from './NewSheetForm.vue';
 
 export default {
   name: 'NavBar',
   data: function() {
     return {
        drop: false,
-       displayName: "",
-       newSheetFormActive: false
+       displayName: ""
     }
   },
   methods: {
@@ -84,9 +73,8 @@ export default {
         this.$router.push('/')
       })
     },
-    sheetCreated(){
-      this.newSheetFormActive = false;
-      this.$router.go(); //reloads the current route so new sheets are grabbed
+    newSheet(){
+      this.$emit("new-sheet");
     }
   },
   created(){
@@ -98,9 +86,6 @@ export default {
     }).then((response) => {
       this.displayName = response.data.displayName;
     })
-  },
-  components: {
-    NewSheetForm
   }
 }
 </script>
