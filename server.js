@@ -9,7 +9,7 @@ app.use(express.static(__dirname + "/dist/"));
     "rpgsheets.herokuapp.com"
   ]));*/
 
-app.prepare().then(() => {
+//app.prepare().then(() => {
   //app.use(requireHTTPS);
   app.get(/.*/, function(req, res) {
     res.sendfile(__dirname + "/dist/index.html");
@@ -29,7 +29,7 @@ app.prepare().then(() => {
   console.log("Server started");
   
 
-})
+//})
 
 
 
