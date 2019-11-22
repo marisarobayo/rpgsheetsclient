@@ -9,14 +9,28 @@ app.use(express.static(__dirname + "/dist/"));
     "rpgsheets.herokuapp.com"
   ]));*/
 
-app.use(requireHTTPS);
-
-app.get(/.*/, function(req, res) {
+app.prepare().then(() => {
+  //app.use(requireHTTPS);
+  app.get(/.*/, function(req, res) {
     res.sendfile(__dirname + "/dist/index.html");
-})
-app.listen(port);
+  })
 
-console.log("Server started");
+  app.use((req,res,next) => {
+    if (req.headers['x-forwarded-proto'] === 'http' || req.hostname === 'rpgsheets.herokuapp.com') {
+      res.redirect(301, 'https://' + req.get('host') + req.baseUrl);
+      return;
+    }
+  
+    res.setHeader('strict-transport-security', 'max-age=31536000; includeSubDomains; preload');
+    next();
+  })
+  
+  app.listen(port);
+  console.log("Server started");
+  
+
+})
+
 
 
 function requireHTTPS(req, res, next) {
