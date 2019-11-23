@@ -12,7 +12,10 @@ app.use(express.static(__dirname + "/dist/"));
 //app.prepare().then(() => {
   //app.use(requireHTTPS);
   app.get(/.*/, function(req, res) {
-    if (req.headers['x-forwarded-proto'] === 'http' || req.hostname === 'rpgsheets.herokuapp.com') {
+    console.log("here");
+    console.log(req.headers);
+    if (req.headers['x-forwarded-proto'] === 'http') {
+      console.log("redirecting");
       res.redirect(301, 'https://' + req.get('host') + req.baseUrl);
       return;
     }
