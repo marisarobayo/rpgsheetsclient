@@ -13,16 +13,17 @@ app.use(serveStatic(path.join(__dirname, 'dist')));
   ]));*/
 
 //app.prepare().then(() => {
+
   //app.use(requireHTTPS);
   app.get(/.*/, function(req, res) {
-    console.log("here");
+    /*console.log("here");
     console.log(req.headers);
     if (req.headers['x-forwarded-proto'] === 'http') {
       console.log("redirecting");
       res.redirect(301, 'https://' + req.get('host') + req.baseUrl);
       return;
     }
-    res.sendfile(__dirname + "/dist/index.html");
+    res.sendfile(__dirname + "/dist/index.html");*/
   })
 
   app.use((req,res,next) => {
