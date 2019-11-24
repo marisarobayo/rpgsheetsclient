@@ -6,12 +6,12 @@
       <button class="delete" @click="successfulUpdate = false"></button>
       Your sheet was updated!
     </div>
-
+    
     <div class = "columns section">
-      <div class = "column is-one-third">
+      <div class = "column is-one-third-desktop">
 
-        <div class = "section">
-          <table name = "stats" class = "table is-fullwidth">
+        <div class = "" >
+          <table name = "stats" class = "table is-fullwidth" >
             <thead>
               <tr>
                 <th></th>
@@ -23,37 +23,37 @@
             <tbody>
               <tr>
                 <th>STR</th>
-                <th><input type = "number" v-model.number="sheet.strength" min = "1" max = "18"/></th>
+                <th><input type = "number"  v-model.number="sheet.strength" min = "1" max = "18" @change="strFail = checkIsNumber(sheet.strength, strFail)"/></th>
                 <th>{{calculateModifier(sheet.strength, sheet.strWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.strWeak"></th>
               </tr>
               <tr>
                 <th>CON</th>
-                <th><input type = "number" v-model.number="sheet.constitution" min = "1" max = "18"/></th>
+                <th><input type = "number" :class = "{'is-danger' : conFail}" v-model.number="sheet.constitution" min = "1" max = "18" @change="conFail =  checkIsNumber(sheet.constitution, conFail)"/></th>
                 <th>{{calculateModifier(sheet.constitution, sheet.conWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.conWeak"></th>
               </tr>
               <tr>
                 <th>DEX</th>
-                <th><input type = "number" v-model.number="sheet.dexterity" min = "1" max = "18"/></th>
+                <th><input type = "number" :class = "{'is-danger' : dexFail}" v-model.number="sheet.dexterity" min = "1" max = "18" @change="dexFail = checkIsNumber(sheet.dexterity, dexFail)"/></th>
                 <th>{{calculateModifier(sheet.dexterity, sheet.dexWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.dexWeak"></th>
               </tr>
               <tr>
                 <th>INT</th>
-                <th><input type = "number" v-model.number="sheet.intelligence" min = "1" max = "18"/></th>
+                <th><input type = "number" :class = "{'is-danger' : intFail}" v-model.number="sheet.intelligence" min = "1" max = "18" @change="intFail = checkIsNumber(sheet.intelligence, intFail)"/></th>
                 <th>{{calculateModifier(sheet.intelligence, sheet.intWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.intWeak"></th>
               </tr>
               <tr>
                 <th>WIS</th>
-                <th><input type = "number" v-model.number="sheet.wisdom" min = "1" max = "18"/></th>
+                <th><input type = "number" :class = "{'is-danger' : wisFail}" v-model.number="sheet.wisdom" min = "1" max = "18" @change="wisFail = checkIsNumber(sheet.wisdom, wisFail)"/></th>
                 <th>{{calculateModifier(sheet.wisdom, sheet.wisWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.wisWeak"></th>
               </tr>
               <tr>
                 <th>CHA</th>
-                <th><input type = "number" v-model.number="sheet.charisma" min = "1" max = "18"/></th>
+                <th><input type = "number" :class = "{'is-danger' : chaFail}" v-model.number="sheet.charisma" min = "1" max = "18" @change="chaFail = checkIsNumber(sheet.charisma, chaFail)"/></th>
                 <th>{{calculateModifier(sheet.charisma, sheet.chaWeak)}}</th>
                 <th> <input type = "checkbox" v-model = "sheet.chaWeak"></th>
               </tr>
@@ -87,7 +87,7 @@
               <input type="radio" name = "race" v-model = "sheet.race" value = "Other">
               Other
             </label>
-            <input type = "text" v-model = "sheet.raceOther" @click="race = 'Other'"/>
+            <input type = "text" v-model = "sheet.raceOther" @click="sheet.race = 'Other'"/>
           </div>
           <textarea class="textarea" placeholder="Racial Move" v-model="sheet.racialMove"></textarea>
         </div>
@@ -123,8 +123,11 @@
           <div class = "title is-3">
             Bonds
           </div>
-          <div v-for="(bond,index) in bondKey" :key="index">
+          <!--<div v-for="(bond,index) in bondKey" :key="index">
             <textarea class="textarea" placeholder="Bond" v-model="sheet.bonds[index]"></textarea>
+          </div>-->
+          <div v-for="bond in sheet.bonds" :key= "bond.id">
+            <textarea class="textarea" placeholder="Bond" v-model="bond.text"></textarea>
           </div>
           
         </div>
@@ -132,10 +135,19 @@
       </div>
       
       <div class = "column">
-        <div class = "control section max" >
-          <input type = "text" v-model = "sheet.class" placeholder="Class Name" class = "input is-large" style = "text-align: center">
+        <div class = "max field is-grouped is-grouped-centered" >
+          <p class = "control is-expanded">
+            <input type = "text" v-model = "sheet.class" placeholder="Class Name" class = "input is-large" style = "text-align: center">
+          </p>
+
+          <p class = "control">
+            <input class = "button is-success is-large" type = "button" @click="updateSheet()" value = "Update sheet">
+          </p>
+          
+          
         </div>
         
+
         <div class="field is-horizontal">
           <div class="field-label is-normal">
             <label class="label">LV</label>
@@ -143,7 +155,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded">
-                <input class="input" type="number" min = 0 v-model = "sheet.level">
+                <input class="input" type="number" min = 0 v-model.number = "sheet.level" @change="levelFail = checkIsNumber(sheet.level, levelFail)">
               </p>
             </div>
             <div class="field-label is-normal">
@@ -151,7 +163,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded">
-                <input class="input" type="number" min = 0 v-model = "sheet.xp">
+                <input class="input" type="number" min = 0 v-model.number = "sheet.xp" @change="xpFail = checkIsNumber(sheet.xp, xpFail)">
               </p>
             </div>
           </div>
@@ -164,7 +176,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control is-expanded">
-                <input class="input" type="number" min = 0 v-model.number = "sheet.maxhp">
+                <input class="input" type="number" min = 0 v-model.number = "sheet.maxhp" @change="maxhpFail = checkIsNumber(sheet.maxhp, maxhpFail)">
               </p>
             </div>
 
@@ -173,7 +185,7 @@
             </div>
             <div class="field">
               <p class="control is-expanded">
-                <input class="input" type="number" min = 0 v-model.number = "sheet.armor">
+                <input class="input" type="number" min = 0 v-model.number = "sheet.armor" @change="armorFail = checkIsNumber(sheet.armor, armorFail)">
               </p>
             </div>
 
@@ -239,7 +251,8 @@
                 <th><input class = "input" type = "text" v-model="item.description"/></th>
                 <th><input class = "input" type = "number" v-model.number="item.weight" min = "0" max = "6" style="width:3em"/></th>
                 <th><input class = "input" type = "text" v-model="item.tags"/></th>
-                <th> <input class = "input" type = "number" v-model.number="item.weight" min = "0" max = "6" style="width:3em"/></th>
+                <th> <input class = "input" type = "number" v-model.number="item.amount" min = "0" max = "6" style="width:3em"/></th>
+                <th> <a @click="sheet.equipment.pop(item);"> Delete</a> </th>
               </tr>
               <tr>
                 <th><a @click="newItem"> Add</a></th>
@@ -247,7 +260,7 @@
             </tbody>
           </table>
         </div>
-        <input class = "button is-primary is-large" type = "button" @click="updateSheet()" value = "Update">
+        
       </div>
     </div>
   </div>
@@ -257,6 +270,7 @@
 <script>
 import _ from 'lodash';
 import {requester} from '../../App.vue';
+import { fail } from 'assert';
 
 export default {
   name: 'DWEditMain',
@@ -264,8 +278,18 @@ export default {
     return {
       sheet: {},
       token: this.$store.state.token,
-      bondKey: ["","","","","",""],
-      successfulUpdate: false
+      successfulUpdate: false,
+      numberOfNumberFieldErrors: 0,
+      strFail: false,
+      dexFail: false,
+      conFail: false,
+      intFail: false,
+      wisFail: false,
+      chaFail: false,
+      levelFail: false,
+      xpFail: false,
+      maxhpFail: false,
+      armorFail: false
       }
   },
   methods: {
@@ -276,6 +300,34 @@ export default {
       this.sheet.equipment.push({});
     },
     updateSheet: _.debounce(async function(){
+      // Validation for standard number attributes
+      if(this.numberOfNumberFieldErrors > 0){
+        return;
+      }
+      
+      // Checking for empty moves and items
+      for(let item of this.sheet.equipment){
+        console.log(item);
+        if(Object.entries(item).length === 0 && item.constructor === Object || item.name == "" || item.name == undefined){
+          this.sheet.equipment.pop(item);
+        }
+      }
+
+      for(let move of this.sheet.moves){
+        if(Object.entries(move).length === 0 && move.constructor === Object || move.name == "" || move.name == undefined){
+          this.sheet.moves.pop(move);
+        }
+      }
+
+      // Validation for item number attributes
+      for(let equip of this.sheet.equipment){
+        console.log(equip);
+        console.log(equip.weight);
+        if(!Number.isInteger(equip.weight) || ! Number.isInteger(equip.amount)){
+          return;
+        }
+      }
+
       let token = this.token;
       let id = this.$route.params.sheetId;
 
@@ -296,6 +348,7 @@ export default {
         }
       }).then(response => {
         this.successfulUpdate = true;
+        this.sheet.race = tmpRace;
       }).catch(err => {
         alert(err);
       }).finally(function (){
@@ -316,7 +369,7 @@ export default {
       this.sheet.level = 1;
       this.sheet.xp = 0;
       for(let i = 0; i < 6; i++){
-        this.sheet.bonds.push("");
+        this.sheet.bonds.push({text: "", id: i});
       }
     },
     calculateModifier: function(attribute, isWeak){
@@ -345,6 +398,20 @@ export default {
         modifier = "+" + modifier;
       }
       return modifier;
+    },
+    checkIsNumber: function(property,failureFlag){
+      if(!Number.isInteger(property)){
+        if(failureFlag == false){
+          this.numberOfNumberFieldErrors++;
+        }
+        return true;
+
+      } else{
+        if(failureFlag == true && this.numberOfNumberFieldErrors > 0){
+          this.numberOfNumberFieldErrors--;
+        }
+        return false;
+      }
     }
     
   },
@@ -359,6 +426,10 @@ export default {
       this.sheet = response.data;
       if(isNaN(this.sheet.strength)){
         this.initialize();
+      }
+      if(this.sheet.race != "Human" && this.sheet.race != "Elf" && this.sheet.race != "Dwarf" && this.sheet.race != "Halfling"){
+        this.sheet.raceOther = this.sheet.race;
+        this.sheet.race = "Other";
       }
     }).catch((response) => {
       //alert("error");

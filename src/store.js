@@ -5,6 +5,11 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+let secureCookie = true;
+if(process.env.NODE_ENV == "development"){
+    secureCookie = false;
+}
+
 export const store = new Vuex.Store({
   state: {
     token: "",
@@ -21,7 +26,7 @@ export const store = new Vuex.Store({
   plugins: [
       createPersistedState({
           getState: (key) => Cookies.getJSON(key),
-          setState: (key, state) => Cookies.set(key, state, {expires: 1, secure: true})
+          setState: (key, state) => Cookies.set(key, state, {expires: 1, secure: secureCookie})
       })
   ]
 

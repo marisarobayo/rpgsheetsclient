@@ -46,7 +46,8 @@
       </div>
     </div>
   </nav> 
-
+  <div class = "has-navbar-fixed-top section">
+  </div>
 </div>
 </template>
 

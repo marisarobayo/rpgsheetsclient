@@ -70,6 +70,7 @@
       <br>
       <div class="field">
         <a class="button is-link" @click="postSheet()" >Create Sheet</a>
+        <a class="button is-danger" @click="close()" >Cancel</a>
       </div>
     </form>
 
@@ -110,11 +111,15 @@ export default {
         }
       },
       ).then(response => {
-        this.$emit('sheet-created');
+        this.close();
       }).catch(err => {
         alert(err);
       })
-    }, 2000, {leading: true})
+    }, 2000, {leading: true}),
+
+    close: _.debounce(async function(){
+      this.$emit('sheet-created');
+    })
     
   }
 }
