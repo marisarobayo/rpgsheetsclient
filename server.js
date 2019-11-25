@@ -27,7 +27,7 @@ app.use(serveStatic(path.join(__dirname, 'dist')));
   })
 
   app.use((req,res,next) => {
-    if (req.headers['x-forwarded-proto'] === 'http' || req.hostname === 'rpgsheets.herokuapp.com') {
+    if (req.headers['x-forwarded-proto'] === 'http' && req.hostname === 'rpgsheets.herokuapp.com') {
       res.redirect(301, 'https://' + req.get('host') + req.baseUrl);
       return;
     }
