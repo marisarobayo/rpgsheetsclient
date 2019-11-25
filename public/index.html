@@ -19,6 +19,7 @@
       function checkHTTPS(){
         // botchy check on client since heroku won't do secure
         if(/*process.env.NODE_ENV != "development" &&*/ location.protocol != "https"){
+            alert(location.protocol);
             location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
         }
       }
