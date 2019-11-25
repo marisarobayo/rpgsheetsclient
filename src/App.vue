@@ -20,6 +20,12 @@ export var requester = axios.create({
 export default {
   name: 'App'
 }
+
+// botchy check on client since heroku won't do secure
+if(/*process.env.NODE_ENV != "development" &&*/ location.protocol != "https"){
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+
 </script>
 
 <style>

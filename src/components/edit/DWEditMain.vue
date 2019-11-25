@@ -321,8 +321,6 @@ export default {
 
       // Validation for item number attributes
       for(let equip of this.sheet.equipment){
-        console.log(equip);
-        console.log(equip.weight);
         if(!Number.isInteger(equip.weight) || ! Number.isInteger(equip.amount)){
           return;
         }
