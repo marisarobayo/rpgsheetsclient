@@ -2,12 +2,14 @@
 
   <div>
 
-    <div class = "navbar is-fixed-bottom notification is-success" :class= "{'hidden': !successfulUpdate}"> <!-- TODO HACER QUE EL DISPLAY:NONE ESTE EN UNA CLASE Y VAYA A CODIGO -->
+    <div class = "navbar is-fixed-bottom notification is-success" :class= "{'hidden': !successfulUpdate}">
       <button class="delete" @click="successfulUpdate = false"></button>
       Your sheet was updated!
     </div>
     
     <div class = "columns section">
+
+      <!-- LEFT SIDE -->
       <div class = "column is-one-third-desktop">
 
         <div class = "" >
@@ -123,18 +125,31 @@
           <div class = "title is-3">
             Bonds
           </div>
-          <!--<div v-for="(bond,index) in bondKey" :key="index">
-            <textarea class="textarea" placeholder="Bond" v-model="sheet.bonds[index]"></textarea>
-          </div>-->
           <div v-for="bond in sheet.bonds" :key= "bond.id">
             <textarea class="textarea" placeholder="Bond" v-model="bond.text"></textarea>
           </div>
-          
         </div>
         
       </div>
       
+      <!-- RIGHT SIDE -->
       <div class = "column">
+        <div class = "columns is-desktop is-vcentered">
+          <div class = "column field is-half-desktop">
+            <div class = "field">
+              <p class = "control is-expanded">
+                <input type = "text" v-model = "sheet.name" placeholder="Character name" class = "input is-large" style = "text-align: center">
+              </p>
+            </div>
+          </div>
+          <div class = "column is-half-desktop " style = "">
+            <input accept="image/*" v-show = "false" ref="fileup" type = "file" @change = "postImage()" />
+            <figure class="image is-256x256 imagecenter" @click = "updateImage()">
+              <img :src = "getImage" alt="Placeholder image"/>
+            </figure>
+          </div>
+        </div>
+
         <div class = "max field is-grouped is-grouped-centered" >
           <p class = "control is-expanded">
             <input type = "text" v-model = "sheet.class" placeholder="Class Name" class = "input is-large" style = "text-align: center">
@@ -143,8 +158,6 @@
           <p class = "control">
             <input class = "button is-success is-large" type = "button" @click="updateSheet()" value = "Update sheet">
           </p>
-          
-          
         </div>
         
 
@@ -225,7 +238,7 @@
           </div>
 
           <div class = "column is-half">
-            <button class="button is-primary is-large" @click="newMove">New Move</button>
+            <button class="button is-primary is-large" @click="newMove">Add Move</button>
           </div>
           
         </div>
@@ -292,7 +305,19 @@ export default {
       armorFail: false
       }
   },
+  computed: {
+    getImage: function(){
+      if(this.sheet.characterSheet && this.sheet.characterSheet.displayImage){
+        return this.sheet.characterSheet.displayImage + "";
+      } else {
+        return require('../../../public/placeholder.png');
+      }
+    }
+  },
   methods: {
+    handleFile: function(){
+      this.image = this.$refs.file.files[0];
+    },
     newMove: function(){
       this.sheet.moves.push({});
     },
@@ -307,7 +332,6 @@ export default {
       
       // Checking for empty moves and items
       for(let item of this.sheet.equipment){
-        console.log(item);
         if(Object.entries(item).length === 0 && item.constructor === Object || item.name == "" || item.name == undefined){
           this.sheet.equipment.pop(item);
         }
@@ -410,6 +434,32 @@ export default {
         }
         return false;
       }
+    },
+
+    updateImage: function(){
+      let fileForm = this.$refs["fileup"];
+      fileForm.click();
+    },
+    postImage: function(){
+      let file = this.$refs["fileup"].files[0];
+      let token = this.$store.state.token;
+
+      let formData = new FormData();
+      formData.append('image', file);
+
+      requester.put('sheets/' + this.sheet.characterSheet._id + "/image", formData, {
+        headers: {
+          token,
+          'Content-Type': 'multipart/form-data'
+        }
+      },
+      ).then(response => {
+        this.sheet.characterSheet.displayImageFile = response.data.displayImageFile;
+        this.sheet.characterSheet.displayImage = response.data.displayImage;
+        this.sheet.characterSheet.displayImageID = response.data.displayImageID;
+      }).catch(err => {
+        alert(err);
+      })
     }
     
   },
@@ -422,6 +472,7 @@ export default {
       }
     }).then((response) => {
       this.sheet = response.data;
+      this.sheet.name = this.sheet.characterSheet.name;
       if(isNaN(this.sheet.strength)){
         this.initialize();
       }
@@ -452,7 +503,16 @@ h1, h2 {
 .center {
   text-align: center;
 }
+.imagecenter {
+  margin: auto;
+}
 .hidden {
   display: none;
+}
+
+.is-256x256{
+  width:350px;
+  height:350px;
+  object-fit: cover;
 }
 </style>

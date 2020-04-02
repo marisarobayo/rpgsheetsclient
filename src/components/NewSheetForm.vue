@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div class="file has-name">
+      <!--<div class="file has-name">
         <label class="file-label">
           <input class="file-input" type="file" name="resume" ref="file" accept="image/*" @change="handleFile()">
           <span class="file-cta">
@@ -50,23 +50,7 @@
             {{image.name}}
           </span>
         </label>
-      </div>
-
-      <!--
-      <div class = "field is-horizontal">
-        <div class = "field-label is-normal">
-          <label for= "playersL" class = "label"> Invite players </label>
-        </div>
-        <div class = "field-body">
-          <div class = "field">
-            <div class = "control">
-              <input id = "playersL" class = "input" :class = "{'is-danger' : playersIncorrect}" type = "password" v-model = "players"/>
-            </div>
-            <p class = "help is-danger left" v-show="playersIncorrect"> Passwords do not match </p>
-          </div>
-        </div>
-      </div>
-      -->
+      </div>-->
       <br>
       <div class="field">
         <a class="button is-link" @click="postSheet()" >Create Sheet</a>
@@ -87,9 +71,7 @@ export default {
     return {
       name: "",
       game: "",
-      image: "",
-      players: [],
-      playersIncorrect: false
+      image: ""
     }
   },
   methods: {
@@ -102,7 +84,7 @@ export default {
       let formData = new FormData();
       formData.append('name', this.name);
       formData.append('game', this.game);
-      formData.append('image', this.image);
+      //formData.append('image', this.image);
 
       requester.post('sheets', formData, {
         headers: {

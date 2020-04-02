@@ -2,11 +2,13 @@
   <div>
     <br/>
     <h3 class = "title is-4 section" v-if="sheets.length > 0"> Character Sheets </h3>
+
     <div class = "columns" v-for = "sheetGroup in sliceSheets(sheets)" :key = "sheetGroup.id">
       <div class = "card column is-one-quarter" v-for="sheet in sheetGroup.sheets" :key="sheet.id">
         <div class = "card-image">
           <figure class="image is-4by3">
-            <img :src="sheet.displayImage" alt="Placeholder image">
+            <img v-if = "sheet.displayImage" :src = "sheet.displayImage" alt="Placeholder image"/>
+            <img v-if = "!sheet.displayImage" src = '../../public/placeholder.png' alt= "Placeholder image"/>
           </figure>
         </div>
         <div class = "card-content">
@@ -103,4 +105,5 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
+
 </style>

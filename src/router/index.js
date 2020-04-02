@@ -74,6 +74,7 @@ export default new Router({
         props: true,
         children: [
           {
+            //to be able to switch between one system and the other
             path: "main",
             name: "DW Edit Main",
             components: {
